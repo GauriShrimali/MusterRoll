@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-back-button defaultHref="home" slot="start"></ion-back-button>
+    <ion-title>Add Employee</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="attendeeInfo">
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-input formControlName="id" type="text" placeholder="Attendee Id"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-input formControlName="name" type="text" placeholder="Name"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-input formControlName="dob" type="text" placeholder="DOB"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-input formControlName="email" type="email" placeholder="Email"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-input formControlName="phone" type="text" placeholder="Phone"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-input formControlName="department" type="text" placeholder="Department"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-input formControlName="designation" type="text" placeholder="Designation"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-input formControlName="shift" type="text" placeholder="Shift"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-input formControlName="shiftTime" type="text" placeholder="Shift Timings"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button defaultHref="tabs/members" color="warning" shape="round" >
+          Cancel
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button (click)="addEmployee()" type="submit" [disabled]="!attendeeInfo.valid" shape="round" class="ion-float-right">
+          Add
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

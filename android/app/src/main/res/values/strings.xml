@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">musterroll</string>
+    <string name="title_activity_main">musterroll</string>
+    <string name="package_name">com.fantomcoders.musterroll</string>
+    <string name="custom_url_scheme">com.fantomcoders.musterroll</string>
+</resources>

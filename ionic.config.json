@@ -1,0 +1,7 @@
+{
+  "name": "musterroll",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
