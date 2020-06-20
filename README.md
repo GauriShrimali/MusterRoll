@@ -11,3 +11,6 @@ Navigate to cloned directory in the terminal and run `npm install` to install no
 
 ### Run on browser
 Navigate to cloned directory in the terminal and run `ionic serve`. As execution finishes open http://localhost:8100/ in your web browser.
+
+### Run on android
+Run `ionic build` first and then run `ionic cap run android` by navigating to working directory in terminal.
