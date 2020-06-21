@@ -42,4 +42,21 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <div *ngFor="let employee of employees | async">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{employee.id}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <span>Name: {{employee.name}}</span><br>
+        <span>DOB: {{employee.dob}}</span><br>
+        <span>Department: {{employee.department}}</span><br>
+        <span>Designation: {{employee.designation}}</span><br>
+        <span>Shift: {{employee.shift}}</span><br>
+        <span>Shift Timings: {{employee.shiftTime}}</span><br>
+        <span>Phone: {{employee.phone}}</span><br>
+        <span>Email: {{employee.email}}</span><br>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

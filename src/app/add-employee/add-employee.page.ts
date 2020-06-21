@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FirestoreService } from '../services/data/firestore.service';
 
 @Component({
   selector: 'app-add-employee',
@@ -8,14 +9,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class AddEmployeePage implements OnInit {
 
-  public attendeeInfo: FormGroup;
+  public employeeInfo: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
+    private firestoreService: FirestoreService
     ) { }
 
   ngOnInit() {
-    this.attendeeInfo = this.formBuilder.group({
+    this.employeeInfo = this.formBuilder.group({
       id: ['', Validators.required],
       name: ['', Validators.required],
       dob: ['', Validators.required],
@@ -29,7 +31,7 @@ export class AddEmployeePage implements OnInit {
   }
 
   addEmployee() {
-    console.log('add employee');
+    this.firestoreService.addEmployee(this.employeeInfo.value);
   }
 
 }

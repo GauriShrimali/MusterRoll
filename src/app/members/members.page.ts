@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FirestoreService } from '../services/data/firestore.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-members',
@@ -9,9 +11,14 @@ export class MembersPage implements OnInit {
 
   departmentList: string[] = ['IT', 'HR', 'RESOURCE'];
   designationList: string[] = ['QA', 'Manager', 'Accountant', 'Receptionist'];
-  constructor() { }
+  employees: Observable<any>;
+
+  constructor(
+    private firestoreService: FirestoreService
+  ) { }
 
   ngOnInit() {
+    this.employees = this.firestoreService.fetchAllEmployees();
   }
 
 }
