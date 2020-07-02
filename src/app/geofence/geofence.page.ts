@@ -1,3 +1,4 @@
+/// <reference types="@types/googlemaps" />
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { Plugins } from '@capacitor/core';
@@ -6,7 +7,6 @@ import { Observable, from } from 'rxjs';
 import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 const { Geolocation } = Plugins;
 
-declare var google;
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -16,14 +16,24 @@ import { map } from 'rxjs/operators';
 })
 export class GeofencePage implements OnInit {
   locations: Observable<any>;
+  checkLocation: Observable<any>;
   locationsCollection: AngularFirestoreCollection<any>;
+  geofenceCollection: AngularFirestoreCollection<any>;
   user = null;
 
   @ViewChild('map', {static: false}) mapElement: ElementRef;
   map: any;
   markers = [];
 
+  listenerHandle: any;
+  path = [];
+  latLngArray = [];
+  fence: any;
+  allFences = [];
   isTracking = false;
+  isCreating = false;
+  isEditing = false;
+  isVisible = false;
   watch = null;
 
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
@@ -39,7 +49,7 @@ export class GeofencePage implements OnInit {
 
     const mapOptions = {
       center: latLng,
-      zoom: 8,
+      zoom: 18,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
@@ -49,7 +59,7 @@ export class GeofencePage implements OnInit {
   anonLogin() {
     this.afAuth.signInAnonymously().then(ref => {
       this.user = ref.user;
-      console.log('user: ', this.user);
+      // console.log('user: ', this.user);
 
       this.locationsCollection = this.afs.collection(
         'locations/${this.user.uid}/track',
@@ -69,8 +79,8 @@ export class GeofencePage implements OnInit {
       );
       // update map
       this.locations.subscribe(locations => {
-        console.log('new locations: ', locations);
-        this.updateMap(locations);
+        // console.log('new locations: ', locations);
+        // this.updateMap(locations);
       });
     });
   }
@@ -106,7 +116,7 @@ export class GeofencePage implements OnInit {
   startTracking() {
     this.isTracking = true;
     this.watch = Geolocation.watchPosition({}, (position, err) => {
-      console.log('new position: ', position);
+      // console.log('new position: ', position);
       if (position) {
         this.addNewLocation(
           position.coords.latitude,
@@ -126,6 +136,105 @@ export class GeofencePage implements OnInit {
   deleteLocation(pos) {
     this.locationsCollection.doc(pos.id).delete();
   }
+
+  addNewCoords(obj) {
+    this.geofenceCollection.add({obj, department: 'IT'});
+  }
+
+  showFences() {
+    this.isVisible = true;
+    this.afs.collection<any>('geofences', ref => ref.where('department', '==', 'IT'))
+    .valueChanges().subscribe(data => {
+      data.forEach(fenceData => {
+        fenceData.obj.forEach(coord => {
+          this.path.push(new google.maps.LatLng(coord));
+        });
+        console.log('Inside showFences', this.path);
+        this.createFence();
+        this.fence.setEditable(false);
+      });
+    });
+  }
+
+  hideFences() {
+    this.isVisible = false;
+    this.allFences.forEach(fence => {
+      fence.setVisible(false);
+    });
+    this.allFences = [];
+  }
+
+  editGeofence() {
+    this.isCreating = true;
+    this.listenerHandle = this.map.addListener('click', mapsMouseEvent => {
+      const coord = mapsMouseEvent.latLng;
+      this.placeMarker(coord);
+    });
+  }
+
+  createFence() {
+    this.fence = new google.maps.Polygon({
+      paths: this.path,
+      strokeColor: '#0000FF',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#0000FF',
+      fillOpacity: 0.4,
+      editable: true
+    });
+    this.path = [];
+    this.fence.setMap(this.map);
+    this.allFences.push(this.fence);
+    console.log('All Fences', this.allFences);
+  }
+
+  placeGeofence() {
+    google.maps.event.removeListener(this.listenerHandle);
+    this.isEditing = true;
+    console.log('Inside placeGeofence', this.path);
+    this.createFence();
+    this.markers.forEach(marker => {
+      marker.setMap(null);
+    });
+    this.markers = [];
+  }
+
+  saveGeofence() {
+    this.isCreating = false;
+    this.isEditing = false;
+    this.fence.setEditable(false);
+    this.geofenceCollection = this.afs.collection('geofences');
+    this.fence.getPath().getArray().forEach(coord => {
+      const lat = coord.lat();
+      const lng = coord.lng();
+      this.latLngArray.push({lat, lng});
+    });
+    console.log(this.latLngArray);
+    this.addNewCoords(this.latLngArray);
+    this.latLngArray = [];
+  }
+
+  placeMarker(latLng) {
+    this.path = this.path.concat(latLng);
+    // console.log(this.path);
+    const marker = new google.maps.Marker({
+      position: latLng,
+      animation: google.maps.Animation.BOUNCE,
+      map: this.map
+    });
+    this.markers.push(marker);
+  }
+
+  inOrOut() {
+    const pos = google.maps.geometry.poly.containsLocation(new google.maps.LatLng(24.622102, 73.708055), this.fence);
+    if (pos) {
+      console.log('Inside Geofence');
+    } else {
+      console.log('Outside Geofence');
+    }
+  }
+
+  // checkLocation.interval(10000).takeWhile(() => true).subscribe(() => this.inOrOut());
 
   ngOnInit() {
   }
