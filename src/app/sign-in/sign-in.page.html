@@ -1,9 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>signIn</ion-title>
+    <ion-title>Sign In</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div id="container">
+    <ion-input [(ngModel)]="email" type="email" placeholder="Email"></ion-input>
+    <ion-input [(ngModel)]="password" type="password" placeholder="Password"></ion-input>
+    <ion-button [routerLink]="['/register']" color="secondary" fill="outline" shape="round">
+      Register
+    </ion-button>
+    <ion-button color="primary" fill="outline" shape="round">
+      Login
+    </ion-button> 
+  </div>
 </ion-content>
