@@ -1,9 +1,24 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    <ion-back-button defaultHref="sign-in" slot="start"></ion-back-button>
+    <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div id="container">
+    <form [formGroup]="adminForm" >
+      <ion-input formControlName="id" type="text" placeholder="ID"></ion-input>
+      <ion-input formControlName="firstname" type="text" placeholder="First Name"></ion-input>
+      <ion-input formControlName="lastname" type="text" placeholder="Last Name"></ion-input>
+      <ion-input formControlName="orgName" type="text" placeholder="Organisation Name"></ion-input>
+      <ion-input formControlName="department" type="text" placeholder="Department"></ion-input>
+      <ion-input formControlName="designation" type="text" placeholder="Designation"></ion-input>
+      <ion-input formControlName="email" type="email" placeholder="Email"></ion-input>
+      <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
+      <ion-button (click)="register()" fill="outline" shape="round">
+        Register
+      </ion-button>
+    </form>
+  </div>
 </ion-content>
