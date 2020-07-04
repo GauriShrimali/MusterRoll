@@ -11,14 +11,14 @@ export class MembersPage implements OnInit {
 
   departmentList: string[] = ['IT', 'HR', 'RESOURCE'];
   designationList: string[] = ['QA', 'Manager', 'Accountant', 'Receptionist'];
-  employees: Observable<any>;
+  members: Observable<any>;
 
   constructor(
     private firestoreService: FirestoreService
   ) { }
 
   ngOnInit() {
-    this.employees = this.firestoreService.fetchAllEmployees();
+    this.members = this.firestoreService.fetchAllMembers$()
   }
 
 }

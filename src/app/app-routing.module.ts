@@ -77,6 +77,10 @@ const routes: Routes = [
     path: 'clock-in',
     loadChildren: () => import('./clock-in/clock-in.module').then( m => m.ClockInPageModule)
   },
+  {
+    path: 'chat-room',
+    loadChildren: () => import('./chat-room/chat-room.module').then( m => m.ChatRoomPageModule)
+  },
 ];
 
 @NgModule({

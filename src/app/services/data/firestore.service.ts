@@ -7,20 +7,21 @@ import { Observable } from 'rxjs';
 })
 export class FirestoreService {
 
-  employeesColRef: AngularFirestoreCollection<any>;
+  membersColRef: AngularFirestoreCollection<any>;
 
   constructor(
     private afs: AngularFirestore
   ) {
-    this.employeesColRef = afs.collection<any>('Employees');
+    this.membersColRef = afs.collection<any>('members');
   }
 
-  fetchAllEmployees(): Observable<any> {
-    return this.employeesColRef.valueChanges();
+  fetchAllMembers$(): Observable<any> {
+    return this.membersColRef.valueChanges();
   }
 
-  addEmployee(employeeInfo: any) {
-    this.afs.doc<any>('Employees/' + employeeInfo.id).set(employeeInfo);
+  addMember(memberDetails: any) {
+    console.log('add member');
+    this.afs.firestore.doc('members/' + memberDetails.uid).set(memberDetails);
   }
 
 }
