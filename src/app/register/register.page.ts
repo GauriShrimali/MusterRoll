@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { FirestoreService } from '../services/data/firestore.service';
+import { MemberService } from '../services/member.service';
 
 @Component({
   selector: 'app-register',
@@ -17,7 +17,7 @@ export class RegisterPage implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private firestoreService: FirestoreService
+    private memberService: MemberService
   ) { }
 
   ngOnInit() {
@@ -41,7 +41,7 @@ export class RegisterPage implements OnInit {
       .then((data) => {
         this.router.navigate(['tabs']);
         adminDetails.uid = data.user.uid;
-        this.firestoreService.addMember(adminDetails);
+        this.memberService.addMember(adminDetails);
       })
       .catch(error => console.log('create member account error: ', error));
   }

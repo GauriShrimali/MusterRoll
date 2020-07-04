@@ -81,6 +81,10 @@ const routes: Routes = [
     path: 'chat-room',
     loadChildren: () => import('./chat-room/chat-room.module').then( m => m.ChatRoomPageModule)
   },
+  {
+    path: 'filter-modal',
+    loadChildren: () => import('./filter-modal/filter-modal.module').then( m => m.FilterModalPageModule)
+  },
 ];
 
 @NgModule({

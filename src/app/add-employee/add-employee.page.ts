@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { FirestoreService } from '../services/data/firestore.service';
 import { AuthService } from '../services/auth.service';
+import { MemberService } from '../services/member.service';
 
 @Component({
   selector: 'app-add-employee',
@@ -14,7 +14,7 @@ export class AddEmployeePage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private firestoreService: FirestoreService,
+    private memberService: MemberService,
     private authService: AuthService
     ) { }
 
@@ -41,7 +41,7 @@ export class AddEmployeePage implements OnInit {
     this.authService.createAccount(employeeDetails.email, employeeDetails.password)
       .then((data) => {
         employeeDetails.uid = data.user.uid;
-        this.firestoreService.addMember(employeeDetails);
+        this.memberService.addMember(employeeDetails);
       })
       .catch(error => console.log('create member account error: ', error));
     this.employeeForm.reset();

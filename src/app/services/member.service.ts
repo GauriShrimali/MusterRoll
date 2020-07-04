@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FirestoreService {
+export class MemberService {
 
   membersColRef: AngularFirestoreCollection<any>;
 
@@ -23,5 +23,4 @@ export class FirestoreService {
     console.log('add member');
     this.afs.firestore.doc('members/' + memberDetails.uid).set(memberDetails);
   }
-
 }
