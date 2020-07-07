@@ -17,8 +17,7 @@ export class FilterModalPage implements OnInit {
     private modalCtrl: ModalController
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   filter() {
     this.modalCtrl.dismiss({

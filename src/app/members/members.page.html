@@ -27,7 +27,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div *ngFor="let member of members | async">
+  <!-- <div *ngFor="let member of members | async">
     <ion-card>
       <ion-card-header>
         <ion-card-title>{{member.id}}</ion-card-title>
@@ -40,5 +40,16 @@
         <span>Email: {{member.email}}</span><br>
       </ion-card-content>
     </ion-card>
-  </div>
+  </div> -->
+  <table>
+    <tr *ngFor='let employee of employees; trackBy: trackByEmpCode'>
+      <td>{{employee.code}}</td>
+      <td>{{employee.name}}</td>
+      <td>{{employee.gender}}</td>
+      <td>{{employee.salary}}</td>
+    </tr>
+  </table>
+  <ion-button (click)="getEmployees()" expand="block" fill="clear" shape="round">
+    Refresh
+  </ion-button>
 </ion-content>

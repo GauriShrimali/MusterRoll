@@ -10,15 +10,17 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth
   ) {
-    this.loginStatus$();
-   }
+    console.log('auth service constructor');
+    this.loginStatus$()
+      .subscribe(loggedIn => {
+        loggedIn ? console.log('user logged in') : console.log('user logged out');
+      });
+  }
 
   loginStatus$() {
-    this.afAuth.authState
-      .pipe(map(user => !!user))
-      .subscribe(loggedIn => {
-        loggedIn ? console.log('Logged in') : console.log('Logged out');
-      });
+    console.log('login status $');
+    return this.afAuth.authState
+      .pipe(map(user => !!user));
   }
 
   async createAccount(email: string, password: string) {

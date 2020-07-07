@@ -10,6 +10,7 @@ export class ChatRoomPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('date now: ', Date.now());
   }
 
 }
