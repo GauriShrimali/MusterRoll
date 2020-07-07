@@ -11,25 +11,6 @@ import { FilterModalPage } from '../filter-modal/filter-modal.page';
 })
 export class MembersPage implements OnInit {
 
-  employees = [
-    {
-      code: '1001', name: 'drashti', gender: 'Female',
-      salary: 55500
-    },
-    {
-      code: '1002', name: 'namrata', gender: 'Female',
-      salary: 57000
-    },
-    {
-      code: '1003', name: 'shreeja', gender: 'Female',
-      salary: 59000
-    },
-    {
-      code: '1004', name: 'shreenil', gender: 'Male',
-      salary: 65000
-    }
-  ];
-
   members: Observable<any>;
   filteredDept: string;
   filteredDes: string;
@@ -41,36 +22,6 @@ export class MembersPage implements OnInit {
 
   ngOnInit() {
     this.members = this.memberService.fetchAllMembers$();
-  }
-
-  getEmployees(): void {
-    console.log('date now: ', Date.now());
-    this.employees = [
-      {
-        code: '1001', name: 'drashti', gender: 'Female',
-        salary: 55500
-      },
-      {
-        code: '1002', name: 'namrata', gender: 'Female',
-        salary: 57000
-      },
-      {
-        code: '1003', name: 'shreeja', gender: 'Female',
-        salary: 59000
-      },
-      {
-        code: '1004', name: 'shreenil', gender: 'Male',
-        salary: 65000
-      },
-      {
-        code: '1005', name: 'tejas', gender: 'Male',
-        salary: 67000
-      }
-    ];
-  }
-
-  trackByEmpCode(index: number, employee: any): string {
-    return employee.code;
   }
 
   async openFilterModal() {

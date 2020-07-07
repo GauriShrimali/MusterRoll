@@ -22,29 +22,6 @@ export class UserService {
     private afs: AngularFirestore
   ) {
     console.log('user service constructor');
-    // this.authService.loginStatus$()
-    // .subscribe(loggedIn => {
-    //   console.log('logged in subscribe');
-    //   if (loggedIn) {
-    //         console.log('logged in');
-    //         this.afAuth.authState
-    //         .pipe(map(user => user.uid))
-    //         .subscribe(uid => {
-    //             console.log('uid subscribe');
-    //             console.log('uService uid: ', uid);
-    //             this.userUID = uid;
-    //             this.userRef = this.afs.doc<any>('members/' + uid);
-    //             this.userRef.valueChanges()
-    //             .subscribe(data => {
-    //               console.log('afs data subscribe');
-    //               this.userData = data;
-    //               this.userRole = data.role;
-    //             });
-    //           });
-    //       } else {
-    //         console.log('logged out');
-    //       }
-    // });
    }
 
    getUser$() {
