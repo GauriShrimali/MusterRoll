@@ -85,6 +85,10 @@ const routes: Routes = [
     path: 'filter-modal',
     loadChildren: () => import('./filter-modal/filter-modal.module').then( m => m.FilterModalPageModule)
   },
+  {
+    path: 'others-profile/:uid',
+    loadChildren: () => import('./others-profile/others-profile.module').then( m => m.OthersProfilePageModule)
+  },
 ];
 
 @NgModule({

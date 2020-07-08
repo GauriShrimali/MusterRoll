@@ -21,6 +21,11 @@ export class MemberService {
 
   addMember(memberDetails: any) {
     console.log('add member');
-    this.afs.firestore.doc('members/' + memberDetails.uid).set(memberDetails);
+    this.afs.doc('members/' + memberDetails.uid).set(memberDetails);
+  }
+
+  getMember$(uid: string): Observable<any> {
+    console.log('get member');
+    return this.afs.doc<any>('members/' + uid).valueChanges();
   }
 }

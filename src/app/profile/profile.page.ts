@@ -12,7 +12,6 @@ export class ProfilePage implements OnInit {
 
   userData: any;
   user$: Observable<any>;
-  phoneNum: string;
 
   constructor(
     public photoService: PhotoService,
